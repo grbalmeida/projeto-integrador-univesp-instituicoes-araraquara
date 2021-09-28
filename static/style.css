@@ -1,0 +1,13 @@
+.carrossel{
+    max-width:75%;
+    margin: 0 auto;
+    max-height: 500px;
+    max-width: 500px;
+  }
+.carousel-item {
+  max-height: 500px;
+  max-width: 500px;
+}
+
+
+
