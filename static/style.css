@@ -8,6 +8,12 @@
   max-height: 500px;
   max-width: 500px;
 }
-
+.redes-sociais{
+  float: right;
+}
+.redes-sociais svg{
+  margin-right: 20px;
+  transform: scale(2);
+}
 
 
