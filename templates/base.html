@@ -22,21 +22,23 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/instituicoes">Instituições</a>
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Outros
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Opção 1</a>
-                    <a class="dropdown-item" href="#">Opção 2</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Opção 3</a>
-                  </div>
-                </li>
+                {% if mostrar_categorias %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Categorias
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      {% for categoria in categorias %} 
+                        <a class="dropdown-item" href="/instituicoes/{{categoria['id']}}">{{categoria['nome']}}</a>
+                      {% endfor %}
+                    </div>
+                  </li>
+                {% endif %}
               </ul>
               <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2" type="search" value="{{nome or ''}}" name="nome" placeholder="Pesquisar" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar
+                </button>
               </form>
             </div>
           </nav>
