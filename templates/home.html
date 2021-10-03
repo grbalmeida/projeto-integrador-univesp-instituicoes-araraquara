@@ -13,8 +13,10 @@
       </ol>
       <div class="carousel-inner">
         {% for img in imgs %} 
-          <div class="carousel-item{% if img['index']=='0' %} active{% endif %}">
-            <img src="{{img['src']}}" class="d-block w-100" alt="...">
+          <div class="carousel-item{% if img['index']==0 %} active{% endif %}">
+            {% if img['src'] %}
+              <img src="{{img['src']}}" class="d-block w-100" alt="...">
+            {% endif %}
             <div class="carousel-caption d-none d-md-block">
               <h5 class= "text-dark">{{img['name']}}</h5>
               <p></p>

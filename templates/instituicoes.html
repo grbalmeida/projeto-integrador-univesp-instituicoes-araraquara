@@ -7,7 +7,9 @@
     <div class="card-columns">
         {% for instituicao in instituicoes %} 
             <div class="card">
-                <img src="{{instituicao['logo']}}" class="card-img-top" alt="Nosso Ninho">
+                {% if instituicao['logo'] %}
+                    <img src="{{instituicao['logo']}}" class="card-img-top" alt="Nosso Ninho">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{instituicao['name']}}</h5>
                     <p class="card-text">{{instituicao['description']}}</p>
