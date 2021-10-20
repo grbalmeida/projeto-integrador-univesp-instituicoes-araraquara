@@ -12,7 +12,7 @@ def home():
     img_client = ImgHttpClient()
     imgs = img_client.obter_imgs()
 
-    return render_template ("home.html", imgs = imgs, mostrar_categorias = False)
+    return render_template ("home.html", imgs = imgs, mostrar_categorias = False, active_tab="home")
 
 @app.route("/instituicoes")
 def instituicoes():
@@ -26,7 +26,8 @@ def instituicoes():
     instituicoes = instituicao_client.obter_instituicoes(nome, categoria_id)
     categorias = categoria_client.obter_categorias()
     
-    return render_template("instituicoes.html", instituicoes = instituicoes, categorias = categorias, mostrar_categorias = True, nome=nome)
+    return render_template(
+        "instituicoes.html", instituicoes = instituicoes, categorias = categorias, mostrar_categorias = True, nome=nome, active_tab="instituicoes")
 
 if __name__ == "__main__":
     app.run(debug=True)
