@@ -13,7 +13,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{instituicao['name']}}</h5>
                     <p class="card-text">{{instituicao['description']}}</p>
-                    <a href="{{instituicao['site']}}" class="btn btn-primary">Visite nosso site!</a>
+                    {% if instituicao['contact']['site'] %}
+                        <a href="{{instituicao['contact']['site']}}" class="btn btn-primary">Visite nosso site!</a>
+                    {% endif %}
                     <div class="redes-sociais">
                         {% if instituicao['contact']['facebook'] %}
                         <a href="{{instituicao['contact']['facebook']}}">
