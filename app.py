@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request
+from datetime import datetime
 
 from http_clients.categoria_http_client import CategoriaHttpClient
 from http_clients.img_http_client import ImgHttpClient
 from http_clients.instituicao_http_client import InstituicaoHttpClient
 
 app = Flask(__name__)
+
+@app.context_processor
+def inject_now():
+    return {'now': datetime.utcnow()}
 
 @app.route("/home")
 @app.route("/")

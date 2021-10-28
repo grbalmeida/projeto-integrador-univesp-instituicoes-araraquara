@@ -19,13 +19,20 @@
   transform: scale(2);
 }
 
-.titulo_principal, .titulo_sobre_nos {
+.titulo_principal, .titulo_sobre_nos, .titulo_secundario {
   color: orange;
   text-align:center;
 }
 
 .titulo_principal {
-
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
+}
+
+.cor-fundo-laranja {
+  background-color: #ffebcc;
+}
+
+.fonte-menu {
+  font-size: 1.6em;
 }
