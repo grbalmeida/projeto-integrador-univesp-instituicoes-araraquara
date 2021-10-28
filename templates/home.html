@@ -4,7 +4,7 @@
 {% block titulo %} Portal Solidário de Araraquara {% endblock %}
 
 {% block content %}
-  <div class="carrossel" style="min-height: 500px;">
+  <div class="carrossel" style="min-height: 300px; display: flex; justify-content: center;">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         {% for img in imgs %} 
@@ -15,7 +15,7 @@
         {% for img in imgs %} 
           <div class="carousel-item{% if img['index']==0 %} active{% endif %}">
             {% if img['src'] %}
-              <img src="{{img['src']}}" class="d-block w-100" alt="...">
+              <img src="{{img['src']}}" class="d-block w-100" alt="..." style="max-height: 300px; max-width: 300px;">
             {% endif %}
             <div class="carousel-caption d-none d-md-block">
               <h5 class= "text-dark">{{img['name']}}</h5>
