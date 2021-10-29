@@ -15,7 +15,9 @@
         {% for img in imgs %} 
           <div class="carousel-item{% if img['index']==0 %} active{% endif %}">
             {% if img['src'] %}
-              <img src="{{img['src']}}" class="d-block w-100" alt="..." style="max-height: 300px; max-width: 300px;">
+              <a href="/instituicoes?categoria_id={{img['categoria_id']}}">
+                <img src="{{img['src']}}" class="d-block w-100" alt="..." style="max-height: 300px; max-width: 300px;">
+              </a>
             {% endif %}
             <div class="carousel-caption d-none d-md-block">
               <h5 class= "text-dark">{{img['name']}}</h5>
@@ -37,6 +39,6 @@
   <div class="container mt-5 mb-5">
     <h1 class="jumbotron-heading titulo_sobre_nos">Sobre nós</h1>
     <p class="lead text-muted" style="text-align: justify;">O Portal Solidário de Araraquara é uma iniciativa de um grupo de estudantes da UNIVESP de Araraquara com o objetivo de conectar as instituições filantrópicas da cidade com as pessoas que querem fazer o bem e ajudar quem precisa. Para isso, o Portal apresenta diversas instituições existentes, suas principais atividades e os links para contato através dos sites e redes sociais. As instituições estão separadas por categorias, para permitir que as pessoas acessem o portal e escolham a forma de contribuir com a qual melhor se identifica.
-      Navegue pelas instituições e escolha agora mesmo como você vai fazer a diferença na construção uma cidade melhor!</p>
+      Navegue pelas instituições e escolha sua forma de contribuir para uma cidade melhor!</p>
   </div>
 {% endblock %}
