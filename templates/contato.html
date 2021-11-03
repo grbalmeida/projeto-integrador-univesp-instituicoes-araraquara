@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Portal Solidário de Araraquara{% endblock %}
+{% block titulo %} Portal Solidário de Araraquara {% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <section class="section-preview">
+
+        <!--Section: Contact v.2-->
+        <section class="mb-4">
+
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Contato</h2>
+            <!--Section description-->
+            <p class="text-center w-responsive mx-auto mb-5 lead">Para entrar em contato conosco preencha os campos abaixo. Responderemos no e-mail indicado.</p>
+
+            {% if mensagem_sucesso %}
+            <div class="alert alert-success" role="alert">
+                {{ mensagem_sucesso }}
+              </div>
+            {% endif %}
+
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-12 mb-md-0 mb-5">
+                    <form id="contact-form" name="formulario-contato" method="POST" action="/contato-envio">
+
+                        <!--Grid row-->
+                        <div class="row">
+
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <label for="nome" class="">Seu nome</label>
+                                    <input type="text" id="nome" name="nome" class="form-control" required>
+                                </div>
+                            </div>
+                            <!--Grid column-->
+
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <label for="email" class="">Seu e-mail</label>
+                                    <input type="email" id="email" name="email" class="form-control" required placeholder="example@example.com">
+                                </div>
+                            </div>
+                            <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mt-3">
+                                    <label for="assunto" class="">Assunto</label>
+                                    <input type="text" id="assunto" name="assunto" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+
+                        <!--Grid row-->
+                        <div class="row">
+
+                            <!--Grid column-->
+                            <div class="col-md-12">
+
+                                <div class="md-form mt-3">
+                                    <label for="mensagem" class="">Sua mensagem</label>
+                                    <textarea type="text" id="mensagem" name="mensagem" rows="2" class="form-control md-textarea" maxlength="1000" required></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--Grid row-->
+
+                        <div class="text-center text-md-left mt-3">
+                            <input type="submit" class="btn btn-primary" value="Enviar" style="background-color: orange; border: none;" />
+                        <div id="status"></div>
+
+                    </form>
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+
+        </section>
+        <!--Section: Contact v.2-->
+
+    </section>
+</div>
+{% endblock %}

@@ -7,6 +7,9 @@
  <div class="container mt-5 mb-5">
     <p class="lead" style="text-align: center;">Separamos as instituições filantrópicas de Araraquara por categorias para você escolher as que se identificam com o seu propósito.<br/>
         Não se esqueça de ajudar também seguindo as redes sociais das instituições!</p>
+        {% if categoria %}
+            <h4 class="titulo_secundario mb-5 mt-4">{{ categoria['nome'] }}</h4>
+        {% endif %}
   </div>
     <div class="card-columns">
         {% for instituicao in instituicoes %} 
