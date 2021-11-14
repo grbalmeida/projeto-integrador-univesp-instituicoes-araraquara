@@ -15,7 +15,7 @@
         {% for instituicao in instituicoes %} 
             <div class="card col-xs-12">
                 {% if instituicao['logo'] %}
-                    <img src="{{instituicao['logo']}}" class="card-img-top" alt="Nosso Ninho">
+                    <img src="{{instituicao['logo']}}" class="card-img-top" alt="{{instituicao['alt_logo']}}">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{instituicao['name']}}</h5>
