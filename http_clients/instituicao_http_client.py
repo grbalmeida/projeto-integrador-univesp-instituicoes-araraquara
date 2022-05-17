@@ -20,3 +20,8 @@ class InstituicaoHttpClient(BaseHttpClient):
         endpoint = f'/instituicoes'
         instituicoes = requests.get(self.api_url + endpoint, params).content
         return json.loads(instituicoes)
+
+    def cadastrar(self, data):
+        endpoint = '/cadastrar'
+        resposta = requests.post(self.api_url + endpoint, data=data)
+        return resposta.json()

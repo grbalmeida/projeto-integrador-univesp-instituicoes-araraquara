@@ -37,6 +37,19 @@ def home():
 def contato():
     return render_template("contato.html", mostrar_categorias = False, active_tab="contato")
 
+@app.route("/cadastro", methods=['GET', 'POST'])
+def cadastro():
+
+    categoria_client = CategoriaHttpClient()
+    categorias = categoria_client.obter_categorias()
+
+    if request.method == 'POST':
+        instituicao_client = InstituicaoHttpClient()
+        result = instituicao_client.cadastrar(request.form.to_dict())
+        return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=result['errors'])
+    
+    return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=[])
+
 @app.route("/contato-envio", methods=['POST'])
 def contato_envio():
     nome = request.form['nome']
