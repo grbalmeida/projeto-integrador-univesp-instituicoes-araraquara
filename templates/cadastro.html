@@ -56,7 +56,7 @@
                             <div class="col-md-6">
                                 <div class="md-form mb-0">
                                     <label for="cnpj" class="">CNPJ</label>
-                                    <input type="text" id="cnpj" name="cnpj" class="form-control" required>
+                                    <input type="text" id="cnpj" name="cnpj" class="form-control" required onKeyPress="formataCampo(this, '00.000.000/0000-00');">
                                 </div>
                             </div>
                             <!--Grid column-->
@@ -96,6 +96,93 @@
                         </div>
                         <!--Grid row-->
 
+                        
+                        <div id="endereco">
+                            <h3 class="mb-3 mt-3">Endereço</h3>
+
+                            <div id="cep-nao-encontrado-erro" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+                                CEP não encontrado
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="md-form mt-3">
+                                        <label for="cep">CEP</label>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <input id="cep" type="text" name="cep" class="form-control col-md-9" onKeyPress="formataCampo(this, '00.000-000')" maxlength="10" />
+                                            <i class="bi bi-search" class="col-md-3" style="font-size: 1.5rem; cursor: pointer;" onclick="buscarCep()"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-8">
+                                    <div class="md-form mt-3">
+                                        <label for="rua">Rua/Avenida</label>
+                                        <input id="rua" type="text" name="rua" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="md-form mt-3">
+                                        <label for="numero">Número</label>
+                                        <input id="numero" type="text" name="numero" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="md-form mt-3">
+                                        <label for="bairro">Bairro</label>
+                                        <input id="bairro" type="text" name="bairro" class="form-control" />
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="md-form mt-3">
+                                        <label for="cidade">Cidade</label>
+                                        <input id="cidade" type="text" name="cidade" class="form-control" value="Araraquara" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="md-form mt-3">
+                                        <label for="estado">Estado</label>
+                                        <select id="estado" name="estado" class="form-control" readonly>
+                                            <option value="SP" selected>São Paulo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="md-form mt-3">
+                                        <label for="pais">País</label>
+                                        <select id="pais" name="pais" class="form-control" readonly>
+                                            <option value="Brasil" selected>Brasil</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-form mt-3">
+                                        <label for="complemento">Complemento</label>
+                                        <input id="complemento" type="text" name="complemento" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mt-3">
+                                    <input onchange="onChangeExibirEndereco(this)" id="exibirEndereco" type="checkbox" name="exibirEndereco" checked />
+                                    <label for="exibirEndereco">Informar endereço</label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="text-center text-md-left mt-3">
                             <input type="submit" class="btn btn-primary" value="Enviar" style="background-color: orange; border: none;" />
                         <div id="status"></div>
@@ -112,4 +199,84 @@
 
     </section>
 </div>
+<script>
+    var ruaInput = document.querySelector('#rua');
+    var bairroInput = document.querySelector('#bairro');
+    var cepNaoEncontradoErro = document.querySelector('#cep-nao-encontrado-erro');
+
+    function onChangeExibirEndereco(ctx) {
+        var enderecoContainer = document.querySelector('#endereco');
+
+        if (ctx.checked) {
+            enderecoContainer.style.display = 'block';
+        } else {
+            enderecoContainer.style.display = 'none';
+        }
+    }
+
+    function buscarCep() {
+        var cep = document.querySelector('#cep');
+
+        if (cep.value.length !== 10) {
+            alert('CEP inválido');
+            return;
+        }
+
+        var cepApenasNumeros = cep.value.replace(/\D/g, '');
+        var url = 'http://viacep.com.br/ws/' + cepApenasNumeros + '/json/';
+
+        fetch(url)
+            .then(function(resposta) {
+                return resposta.json();
+            })
+            .then(function(resposta) {
+                if (resposta.erro) {
+                    ruaInput.value = '';
+                    bairroInput.value = '';
+                    cepNaoEncontradoErro.style.display = 'block';
+                } else {
+                    ruaInput.value = resposta.logradouro;
+                    bairroInput.value = resposta.bairro;
+                    cepNaoEncontradoErro.style.display = 'none';
+                }
+            });
+    }
+
+    function formataCampo(campo, Mascara) {
+        var er = /[^0-9/ (),.-]/;
+        er.lastIndex = 0;
+    
+        if (er.test(campo.value)) {///verifica se é string, caso seja então apaga
+            var texto = $(campo).val();
+            $(campo).val(texto.substring(0, texto.length - 1));
+        }
+        var boleanoMascara;
+        var exp = /\-|\.|\/|\(|\)| /g
+        var campoSoNumeros = campo.value.toString().replace(exp, "");
+        var posicaoCampo = 0;
+        var NovoValorCampo = "";
+        var TamanhoMascara = campoSoNumeros.length;
+        for (var i = 0; i <= TamanhoMascara; i++) {
+            boleanoMascara = ((Mascara.charAt(i) == "-") || (Mascara.charAt(i) == ".")
+                    || (Mascara.charAt(i) == "/"))
+            boleanoMascara = boleanoMascara || ((Mascara.charAt(i) == "(")
+                    || (Mascara.charAt(i) == ")") || (Mascara.charAt(i) == " "))
+            if (boleanoMascara) {
+                NovoValorCampo += Mascara.charAt(i);
+                TamanhoMascara++;
+            } else {
+                NovoValorCampo += campoSoNumeros.charAt(posicaoCampo);
+                posicaoCampo++;
+            }
+        }
+        campo.value = NovoValorCampo;
+        ////LIMITAR TAMANHO DE CARACTERES NO CAMPO DE ACORDO COM A MASCARA//
+        if (campo.value.length > Mascara.length) {
+            var texto = $(campo).val();
+            $(campo).val(texto.substring(0, texto.length - 1));
+        }
+        //////////////
+        return true;
+    }
+</script>
 {% endblock %}
