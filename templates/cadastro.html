@@ -177,8 +177,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="md-form mt-3">
-                                    <input onchange="onChangeExibirEndereco(this)" id="exibirEndereco" type="checkbox" name="exibirEndereco" checked />
-                                    <label for="exibirEndereco">Informar endereço</label>
+                                    <input type="hidden" name="exibirEndereco" value="S" />
+                                    <input onchange="onChangeExibirEndereco(this)" id="exibirEnderecoContainer" type="checkbox" name="exibirEnderecoContainer" value="S" checked />
+                                    <label for="exibirEnderecoContainer">Informar endereço</label>
                                 </div>
                             </div>
                         </div>
@@ -205,11 +206,14 @@
     var cepNaoEncontradoErro = document.querySelector('#cep-nao-encontrado-erro');
 
     function onChangeExibirEndereco(ctx) {
+        var enderecoHidden = document.querySelector('[name="exibirEndereco"]');
         var enderecoContainer = document.querySelector('#endereco');
 
         if (ctx.checked) {
+            enderecoHidden.value = 'S';
             enderecoContainer.style.display = 'block';
         } else {
+            enderecoHidden.value = 'N';
             enderecoContainer.style.display = 'none';
         }
     }
