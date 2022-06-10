@@ -46,9 +46,9 @@ def cadastro():
     if request.method == 'POST':
         instituicao_client = InstituicaoHttpClient()
         result = instituicao_client.cadastrar(request.form.to_dict())
-        return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=result['errors'])
+        return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=result['errors'], success=result['success'])
     
-    return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=[])
+    return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=[], success=False)
 
 @app.route("/contato-envio", methods=['POST'])
 def contato_envio():

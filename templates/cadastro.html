@@ -34,6 +34,15 @@
               {% endfor %}
             {% endif %}
 
+            {% if success %}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    Instituição cadastrada com sucesso
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
             <div class="row">
 
                 <!--Grid column-->
@@ -47,7 +56,7 @@
                             <div class="col-md-6">
                                 <div class="md-form mb-0">
                                     <label for="nome" class="">Nome</label>
-                                    <input type="text" id="nome" name="nome" class="form-control" required>
+                                    <input aria-label="Informe o nome" type="text" id="nome" name="nome" class="form-control" value="{{request.form['nome']}}" required>
                                 </div>
                             </div>
                             <!--Grid column-->
@@ -56,7 +65,7 @@
                             <div class="col-md-6">
                                 <div class="md-form mb-0">
                                     <label for="cnpj" class="">CNPJ</label>
-                                    <input type="text" id="cnpj" name="cnpj" class="form-control" required onKeyPress="formataCampo(this, '00.000.000/0000-00');">
+                                    <input aria-label="Informe o cnpj" type="text" id="cnpj" name="cnpj" class="form-control" value="{{request.form['cnpj']}}" required onKeyPress="formataCampo(this, '00.000.000/0000-00');">
                                 </div>
                             </div>
                             <!--Grid column-->
@@ -69,7 +78,7 @@
                             <div class="col-md-12">
                                 <div class="md-form mt-3">
                                     <label for="descricao" class="">Descrição</label>
-                                    <textarea id="descricao" name="descricao" class="form-control" required></textarea>
+                                    <textarea aria-label="Informe a descrição" id="descricao" name="descricao" class="form-control" required>{{request.form['descricao']}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -83,9 +92,9 @@
 
                                 <div class="md-form mt-3">
                                     <label for="categoria" class="">Categoria</label>
-                                    <select id="categoria" name="categoria" class="form-control" required>
+                                    <select aria-label="Informe a categoria" id="categoria" name="categoria" class="form-control" required>
                                         {% for categoria in categorias %}
-                                            <option value="{{categoria.id}}">
+                                            <option value="{{categoria.id}}" {% if request.form['categoria'] == categoria.id %}selected{% endif %}>
                                                 {{categoria.nome}}
                                             </option>
                                         {% endfor %}
@@ -109,7 +118,7 @@
                                     <div class="md-form mt-3">
                                         <label for="cep">CEP</label>
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                                            <input id="cep" type="text" name="cep" class="form-control col-md-9" onKeyPress="formataCampo(this, '00.000-000')" maxlength="10" />
+                                            <input aria-label="Informe o cep" id="cep" type="text" name="cep" class="form-control col-md-9" value="{{request.form['cep']}}" onKeyPress="formataCampo(this, '00.000-000')" maxlength="10" />
                                             <i class="bi bi-search" class="col-md-3" style="font-size: 1.5rem; cursor: pointer;" onclick="buscarCep()"></i>
                                         </div>
                                     </div>
@@ -118,14 +127,14 @@
                                 <div class="col-md-8">
                                     <div class="md-form mt-3">
                                         <label for="rua">Rua/Avenida</label>
-                                        <input id="rua" type="text" name="rua" class="form-control" />
+                                        <input aria-label="Informe a rua ou avenida" id="rua" type="text" name="rua" class="form-control" value="{{request.form['rua']}}" />
                                     </div>
                                 </div>
 
                                 <div class="col-md-2">
                                     <div class="md-form mt-3">
                                         <label for="numero">Número</label>
-                                        <input id="numero" type="text" name="numero" class="form-control" />
+                                        <input aria-label="Informe o número do endereço" id="numero" type="text" name="numero" class="form-control" value="{{request.form['numero']}}" />
                                     </div>
                                 </div>
                             </div>
@@ -134,21 +143,21 @@
                                 <div class="col-md-4">
                                     <div class="md-form mt-3">
                                         <label for="bairro">Bairro</label>
-                                        <input id="bairro" type="text" name="bairro" class="form-control" />
+                                        <input aria-label="Informe o bairro" id="bairro" type="text" name="bairro" class="form-control" value="{{request.form['bairro']}}" />
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-4">
                                     <div class="md-form mt-3">
                                         <label for="cidade">Cidade</label>
-                                        <input id="cidade" type="text" name="cidade" class="form-control" value="Araraquara" readonly />
+                                        <input aria-label="Informe a cidade" id="cidade" type="text" name="cidade" class="form-control" value="Araraquara" readonly />
                                     </div>
                                 </div>
 
                                 <div class="col-md-2">
                                     <div class="md-form mt-3">
                                         <label for="estado">Estado</label>
-                                        <select id="estado" name="estado" class="form-control" readonly>
+                                        <select aria-label="Informe o estado" id="estado" name="estado" class="form-control" readonly>
                                             <option value="SP" selected>São Paulo</option>
                                         </select>
                                     </div>
@@ -157,7 +166,7 @@
                                 <div class="col-md-2">
                                     <div class="md-form mt-3">
                                         <label for="pais">País</label>
-                                        <select id="pais" name="pais" class="form-control" readonly>
+                                        <select aria-label="Informe o país" id="pais" name="pais" class="form-control" readonly>
                                             <option value="Brasil" selected>Brasil</option>
                                         </select>
                                     </div>
@@ -168,7 +177,7 @@
                                 <div class="col-md-12">
                                     <div class="md-form mt-3">
                                         <label for="complemento">Complemento</label>
-                                        <input id="complemento" type="text" name="complemento" class="form-control" />
+                                        <input aria-label="Informe o complemento" id="complemento" type="text" name="complemento" class="form-control" value="{{request.form['complemento']}}" />
                                     </div>
                                 </div>
                             </div>
@@ -191,21 +200,21 @@
                                 <div class="col-md-4">
                                     <div class="md-form mt-3">
                                         <label for="telefone_comercial">Telefone Comercial</label>
-                                        <input id="telefone_comercial" type="text" name="telefone_comercial" class="form-control" />
+                                        <input aria-label="Informe o telefone comercial" id="telefone_comercial" type="text" name="telefone_comercial" class="form-control" value="{{request.form['telefone_comercial']}}" onKeyPress="formataCampo(this, '(00) 0000-000');"/>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="md-form mt-3">
                                         <label for="telefone_celular">Telefone Celular</label>
-                                        <input id="telefone_celular" type="text" name="telefone_celular" class="form-control" />
+                                        <input aria-label="Informe o telefone celular" id="telefone_celular" type="text" name="telefone_celular" class="form-control" value="{{request.form['telefone_celular']}}" onKeyPress="formataCampo(this, '(00) 00000-000');" />
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="md-form mt-3">
                                         <label for="email">E-mail</label>
-                                        <input id="email" type="email" name="email" class="form-control" />
+                                        <input aria-label="Informe o email" id="email" type="email" name="email" class="form-control" value="{{request.form['email']}}" />
                                     </div>
                                 </div>
                             </div>
@@ -214,22 +223,27 @@
                                 <div class="col-md-4">
                                     <div class="md-form mt-3">
                                         <label for="site">Site</label>
-                                        <input id="site" type="text" name="site" class="form-control" />
+                                        <input aria-label="Informe o site" id="site" type="text" name="site" class="form-control" value="{{request.form['site']}}" />
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="md-form mt-3">
                                         <label for="instagram">Instagram</label>
-                                        <input id="instagram" type="text" name="instagram" class="form-control" />
+                                        <input aria-label="Informe o instagram" id="instagram" type="text" name="instagram" class="form-control" value="{{request.form['instagram']}}" />
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="md-form mt-3">
                                         <label for="facebook">Facebook</label>
-                                        <input id="facebook" type="email" name="facebook" class="form-control" />
+                                        <input aria-label="Informe o facebook" id="facebook" type="text" name="facebook" class="form-control" value="{{request.form['facebook']}}" />
                                     </div>
+                                </div>
+                                <div>
+                                    <input type="hidden" name="twitter" value="" />
+                                    <input type="hidden" name="linkedin" value="" />
+                                    <input type="hidden" name="youtube" value="" />
                                 </div>
                             </div>
                         </div>
