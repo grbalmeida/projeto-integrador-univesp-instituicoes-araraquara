@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mail import Mail, Message
 import os
 from datetime import datetime
@@ -19,6 +19,7 @@ mail_settings = {
 }
 
 app.config.update(mail_settings)
+app.config['SECRET_KEY'] = 'projeto-integrador-univesp-instituicoes-araraquara'
 mail = Mail(app)
 
 @app.context_processor
@@ -46,9 +47,14 @@ def cadastro():
     if request.method == 'POST':
         instituicao_client = InstituicaoHttpClient()
         result = instituicao_client.cadastrar(request.form.to_dict())
-        return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=result['errors'], success=result['success'])
+
+        if result['success']:
+            flash('Instituição cadastrada com sucesso')
+            return redirect(url_for('cadastro'))
+
+        return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=result['errors'])
     
-    return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=[], success=False)
+    return render_template("cadastro.html", mostrar_categorias = False, active_tab="cadastro", categorias=categorias, errors=[])
 
 @app.route("/contato-envio", methods=['POST'])
 def contato_envio():

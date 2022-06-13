@@ -62,6 +62,20 @@
 
         <h1 class="titulo_principal" style="margin-top: 180px;">{% block titulo %} {% endblock %}</h1>
         <h4 class="titulo_secundario mb-5 mt-4">Escolha quem e como ajudar</h4>
+        
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-success alert-dismissible" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
         {% block content %} {% endblock %}
 
         <div class="text-center p-4 cor-fundo-laranja">

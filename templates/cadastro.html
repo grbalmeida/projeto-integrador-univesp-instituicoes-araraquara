@@ -17,12 +17,6 @@
                 Para cadastrar uma nova instituição preencha os campos abaixo.
             </p>
 
-            {% if mensagem_sucesso %}
-                <div class="alert alert-success" role="alert">
-                    {{ mensagem_sucesso }}
-                </div>
-            {% endif %}
-
             {% if errors %}
               {% for error in errors %}
                 <div class="alert alert-danger alert-dismissible" role="alert">
@@ -32,15 +26,6 @@
                     </button>
                 </div>
               {% endfor %}
-            {% endif %}
-
-            {% if success %}
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    Instituição cadastrada com sucesso
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
             {% endif %}
 
             <div class="row">
