@@ -269,13 +269,13 @@
 
     function buscarCep() {
         var cep = document.querySelector('#cep');
+        var cepApenasNumeros = cep.value.replace(/\D/g, '');
 
-        if (cep.value.length !== 10) {
+        if (cepApenasNumeros.length !== 8) {
             alert('CEP inválido');
             return;
         }
 
-        var cepApenasNumeros = cep.value.replace(/\D/g, '');
         var url = 'http://viacep.com.br/ws/' + cepApenasNumeros + '/json/';
 
         fetch(url)
